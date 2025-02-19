@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Engineer Portfolio</title>
+  <style>
+    :root {
+      --primary: hsl(248, 39%, 55%);
+      --secondary: hsl(348, 83%, 47%);
+      --background: hsl(210, 40%, 98%);
+      --text: hsl(222, 47%, 11%);
+      --shadow: 0 4px 24px -6px hsla(0, 0%, 0%, 0.2);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @font-face {
+      font-family: 'SpaceGrotesk';
+      src: url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'SpaceGrotesk', system-ui, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      transition: var(--transition);
+    }
+
+    .container {
+      width: min(100%, 720px);
+      margin: auto;
+    }
+
+    .search {
+      position: relative;
+      margin-bottom: 4rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 1.25rem 2rem;
+      border-radius: 3rem;
+      border: 2px solid var(--primary);
+      background: transparent;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 4px hsl(348, 83%, 90%);
+    }
+
+    .search-button {
+      aspect-ratio: 1;
+      padding: 1.25rem;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+    }
+
+    .search-button:hover {
+      transform: translateY(-2px) rotate(8deg);
+      box-shadow: 0 8px 32px -8px var(--primary);
+    }
+
+    .welcome {
+      padding: 3rem 2rem;
+      border-radius: 2rem;
+      background: linear-gradient(135deg, 
+        hsla(348, 83%, 47%, 0.1) 0%,
+        hsla(248, 39%, 55%, 0.2) 100%
+      );
+      border: 2px solid var(--primary);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .welcome::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(
+        transparent 25%,
+        var(--primary) 50%,
+        transparent 75%
+      );
+      animation: rotate 8s linear infinite;
+      opacity: 0.1;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    .welcome-text {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      line-height: 1.4;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      font-weight: 700;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: var(--background);
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 640px) {
+      .search {
+        flex-direction: column;
+      }
+      
+      .search-button {
+        width: 100%;
+        border-radius: 3rem;
+      }
+    }
+
+    /* Dark theme */
+    [data-theme="dark"] {
+      --background: hsl(222, 47%, 11%);
+      --text: hsl(210, 40%, 98%);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="theme-toggle" aria-label="Toggle theme"></button>
+    
+    <div class="search">
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search skills, projects, or experiences..."
+        aria-label="Search portfolio"
+      >
+      <button class="search-button" aria-label="Search">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="welcome">
+      <h1 class="welcome-text">
+        <span class="animated-text">Hi Mom!</span> I'm evolving into a<br>
+        <span class="typewriter">
+          Backend Architect<br>
+          Hardware Innovator<br>
+          AI Solutions Engineer<br>
+          Tech Entrepreneurship Visionary
+        </span>
+      </h1>
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.dataset.theme = 
+        document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    });
+
+    // Animated text effect
+    const animatedText = document.querySelector('.animated-text');
+    let hue = 0;
+    setInterval(() => {
+      hue = (hue + 1) % 360;
+      animatedText.style.textShadow = `
+        0 0 8px hsl(${hue}, 80%, 50%),
+        0 0 16px hsl(${hue}, 80%, 50%)
+      `;
+    }, 50);
+
+    // Typewriter effect
+    const typewriter = document.querySelector('.typewriter');
+    const roles = [
+      'Backend Architect',
+      'Hardware Innovator',
+      'AI Solutions Engineer',
+      'Tech Entrepreneurship Visionary'
+    ];
+    let roleIndex = 0;
+    let charIndex = 0;
+    
+    function type() {
+      if (charIndex < roles[roleIndex].length) {
+        typewriter.textContent += roles[roleIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 100);
+      } else {
+        setTimeout(erase, 2000);
+      }
+    }
+
+    function erase() {
+      if (charIndex > 0) {
+        typewriter.textContent = roles[roleIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 50);
+      } else {
+        roleIndex = (roleIndex + 1) % roles.length;
+        setTimeout(type, 500);
+      }
+    }
+
+    type();
+  </script>
+</body>
+</html>
