@@ -1,0 +1,15 @@
+/* snake.css */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #222;
+    margin: 0;
+}
+
+#gameCanvas {
+    background-color: #000;
+    border: 5px solid #fff;
+}
